@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ماجد الحربي | ملف الأعمال</title>
+    <title>ماجد الحربي | ملف الأعمال الاحترافي</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts (Cairo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,10 +18,11 @@
                     colors: {
                         brand: {
                             black: '#0A0A0B',
-                            card: '#131316',
-                            royal: '#0053E7', /* الأزرق الملكي */
+                            card: '#121215',
+                            popupBg: 'rgba(10, 10, 11, 0.95)',
+                            royal: '#0053E7',
                             royalDark: '#003BB3',
-                            gray: '#9898ED',
+                            royalLight: '#3375ED',
                             textMuted: '#A0A0A5'
                         }
                     },
@@ -38,52 +39,65 @@
             font-family: 'Cairo', sans-serif;
         }
         .glass {
-            background: rgba(19, 19, 22, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(18, 18, 21, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-b: 1px solid rgba(255, 255, 255, 0.04);
         }
-        /* تحسين مظهر الأزرار النشطة */
         .active-filter {
             background-color: #0053E7 !important;
             color: white !important;
-            box-shadow: 0 10px 25px -5px rgba(0, 83, 231, 0.4);
+            border-color: #0053E7 !important;
+            box-shadow: 0 10px 20px -5px rgba(0, 83, 231, 0.3);
+        }
+        .portfolio-item {
+            display: none;
+            opacity: 0;
+            transform: scale(0.98);
+            transition: all 0.4s ease;
+        }
+        .portfolio-item.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
         }
     </style>
 </head>
 <body class="text-white antialiased overflow-x-hidden">
 
-    <!-- الهيدر / شريط التنقل -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="text-lg font-bold tracking-widest">
-                MAJED <span class="text-brand-royal">ALHARBI</span>
+    <!-- الهيدر / شريط التنقل (تم تكبير اسمك وإبرازه) -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="text-xl md:text-2xl font-black tracking-widest text-white">
+                ماجد <span class="text-brand-royal">الحربي</span>
             </div>
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-textMuted">
                 <a href="#hero" class="hover:text-white transition-colors">الرئيسية</a>
                 <a href="#about" class="hover:text-white transition-colors">قصتي</a>
                 <a href="#work" class="hover:text-white transition-colors">أعمالي</a>
-                <a href="#contact" class="px-5 py-2.5 rounded-full bg-brand-royal text-white hover:bg-brand-royalDark transition-all duration-300 shadow-lg shadow-brand-royal/20">تواصل معي</a>
+                <a href="#contact" class="px-6 py-3 rounded-full bg-brand-royal text-white hover:bg-brand-royalDark transition-all duration-300 font-bold shadow-lg shadow-brand-royal/20">تواصل معي</a>
             </nav>
         </div>
     </header>
 
-    <!-- القسم الرئيسي (Hero Section) -->
-    <section id="hero" class="min-h-screen flex items-center justify-center relative pt-20 px-6 overflow-hidden">
-        <!-- هالة الضوء الأزرق الملكي الفاخرة في الخلفية -->
+    <!-- القسم الرئيسي (Hero Section) - تم تكبير الاسم وزيادة المسافة بين السطور -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative pt-24 px-6 overflow-hidden">
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-royal/10 rounded-full blur-[140px] pointer-events-none"></div>
         
-        <div class="max-w-4xl text-center z-10 space-y-6">
-            <h2 class="text-xl md:text-2xl font-medium text-brand-royal tracking-wide">ماجد الحربي</h2>
-            <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
-                أصنع تفاصيل <br>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-brand-royal">تترك أثراً بصرياً</span>
+        <div class="max-w-4xl text-center z-10 space-y-8">
+            <h2 class="text-2xl md:text-4xl font-black text-brand-royal tracking-wide mb-2">المصمم: ماجد الحربي</h2>
+            
+            <!-- زيادة مسافة السطور عبر تباين المارجن والـ leading الخاص بالسطرين المتلازقين -->
+            <h1 class="text-4xl md:text-7xl font-black tracking-tight text-white flex flex-col gap-6 md:gap-8">
+                <span>أصنع تفاصيل</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-brand-royal py-1">تترك أثراً بصرياً</span>
             </h1>
-            <p class="text-brand-textMuted text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-                مرحباً بك في عالمي البصري. هنا تجد خلاصة شغفي في تصميم الهويات البصرية المبتكرة، البوستر السينمائي والرياضي، والفنون الرقمية المتجددة.
+            
+            <p class="text-brand-textMuted text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed pt-2">
+                مرحباً بك في عالمي البصري. هنا تجد خلاصة شغفي في تصميم الشعارات المبتكرة، البوستر السينمائي والرياضي، والفنون الرقمية المتجددة.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
-                <a href="#work" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-royal text-white font-medium hover:bg-brand-royalDark transition-all duration-300 shadow-xl shadow-brand-royal/20 text-center">
+                <a href="#work" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-royal text-white font-bold hover:bg-brand-royalDark transition-all duration-300 shadow-xl shadow-brand-royal/20 text-center">
                     تصفح معرض الأعمال
                 </a>
                 <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-card text-white font-medium border border-white/5 hover:border-brand-royal/30 transition-all duration-300 text-center">
@@ -93,34 +107,34 @@
         </div>
     </section>
 
-    <!-- قسم الأرقام والإحصائيات (Stats Section) -->
+    <!-- قسم الأرقام والإحصائيات المحدثة بالكامل -->
     <section class="py-16 max-w-6xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             
             <div class="bg-brand-card border border-white/5 rounded-2xl p-6 text-center shadow-sm">
-                <div class="text-3xl md:text-5xl font-black text-brand-royal mb-2" data-target="5">0</div>
+                <div class="text-3xl md:text-5xl font-black text-brand-royal mb-2" data-target="3">0</div>
                 <div class="text-xs md:text-sm text-brand-textMuted font-light">سنوات الخبرة والشغف</div>
             </div>
 
             <div class="bg-brand-card border border-white/5 rounded-2xl p-6 text-center shadow-sm">
-                <div class="text-3xl md:text-5xl font-black text-white mb-2" data-target="140">0</div>
-                <div class="text-xs md:text-sm text-brand-textMuted font-light">مشاريع وتصاميم منجزة</div>
+                <div class="text-3xl md:text-5xl font-black text-white mb-2" data-target="100">0</div>
+                <div class="text-xs md:text-sm text-brand-textMuted font-light">أعمال ومنجزات بصرية</div>
             </div>
 
             <div class="bg-brand-card border border-white/5 rounded-2xl p-6 text-center shadow-sm">
-                <div class="text-3xl md:text-5xl font-black text-white mb-2" data-target="50">0</div>
-                <div class="text-xs md:text-sm text-brand-textMuted font-light">عملاء سعداء بالنتيجة</div>
+                <div class="text-3xl md:text-5xl font-black text-white mb-2" data-target="20">0</div>
+                <div class="text-xs md:text-sm text-brand-textMuted font-light">أندية وجهات رياضية</div>
             </div>
 
             <div class="bg-brand-card border border-white/5 rounded-2xl p-6 text-center shadow-sm">
-                <div class="text-3xl md:text-5xl font-black text-brand-royal mb-2" data-target="100">0</div>
-                <div class="text-xs md:text-sm text-brand-textMuted font-light">أفكار مبتكرة وقصص حية</div>
+                <div class="text-brand-royal text-xl md:text-2xl font-black mb-2 mt-2 md:mt-4">24/7</div>
+                <div class="text-xs md:text-sm text-brand-textMuted font-light">جودة والتزام مستمر</div>
             </div>
 
         </div>
     </section>
 
-    <!-- قسم عني / الفضفضة المصاغة بفخامة (About Section) -->
+    <!-- قسم النبذة (تم تدقيقها إملائياً ولغوياً وإضافة علامات التنصيص الفاخرة) -->
     <section id="about" class="py-32 bg-brand-card/20 border-y border-white/5 relative">
         <div class="max-w-5xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
@@ -132,13 +146,13 @@
 
                 <div class="md:col-span-8 text-brand-textMuted font-light text-base md:text-lg leading-relaxed space-y-6 border-r-0 md:border-r-2 border-brand-royal/20 md:pr-8">
                     <p>
-                        أنا <strong class="text-white font-medium">ماجد الحربي</strong>، مصمم بدأت رحلتي من الصفر، متعلماً بأبسط الأدوات المتاحة. لم تكن البساطة عائقاً بل دافعاً للتطور المستمر، واليوم ولله الحمد، وصلت إلى مستوى احترافي أرضى عنه تماماً وأطمح من خلاله للأفضل دائماً.
+                        أنا <strong class="text-white font-bold">ماجد الحربي</strong>، مصمم بدأت رحلتي من الصفر، متعلماً بأبسط الأدوات المتاحة. لم تكن البساطة عائقاً بل كانت دافعاً للتطور المستمر، واليوم ولله الحمد، وصلت إلى مستوى احترافي أرضى عنه تماماً وأطمح من خلاله للأفضل دائماً.
                     </p>
                     <p>
-                        فلسفتي في التصميم تتلخص في أن العمل ليس مجرد دمج صور أو ترتيب عناصر؛ بل هو <strong class="text-white font-medium">بث للحياة وصناعة قصة متكاملة</strong> تلمس المشاهد. أحرص دائماً على مواكبة أحدث الاتجاهات العالمية، وأركز بقوة على كسب الإلهام وتوسيع آفاقي البصرية، لأنني أؤمن تماماً بأن "الفكرة والإلهام" هما الأساس، أما الأدوات والتنفيذ فأمرها مقدور عليه وسهل.
+                        فلسفتي في التصميم تتلخص في أن العمل ليس مجرد دمج صور أو ترتيب عناصر؛ بل هو <strong class="text-white font-medium">«بثٌّ للحياة وصناعة قصة متكاملة تلمس المشاهد»</strong>. أحرص دائماً على مواكبة أحدث الاتجاهات العالمية، وأركز بقوة على كسب الإلهام وتوسيع آفاقي البصرية، لأنني أؤمن تماماً بأن <strong class="text-white font-medium">«الفكرة والإلهام هما الأساس، أما الأدوات والتنفيذ فأمرها مقدور عليه وسهل»</strong>.
                     </p>
                     <p>
-                        لا أحب التكرار أو البقاء في قالب تقليدي، بل أسعى دوماً للابتكار والتجديد المستمر لتقديم أعمال تتسم بـ <strong class="text-white font-medium">أعلى معايير الجودة</strong>، مظهراً فيها كامل قدراتي وإمكانياتي لتلبية تطلعات العميل وترك بصمة بصرية لا تُنسى.
+                        لا أحب التكرار أو البقاء في قالب تقليدي، بل أسعى دوماً للابتكار والتجديد المستمر لتقديم أعمال تتسم بـ <strong class="text-white font-medium">«أعلى معايير الجودة»</strong>، مظهراً فيها كامل قدراتي وإمكانياتي لتلبية تطلعات العميل وترك بصمة بصريّة لا تُنسى.
                     </p>
                 </div>
 
@@ -146,91 +160,101 @@
         </div>
     </section>
 
-    <!-- قسم معرض الأعمال الذكي المقسم (Portfolio Section) -->
+    <!-- قسم معرض الأعمال الذكي بدون خانة "الكل" ومع دعم الألبومات المتعددة -->
     <section id="work" class="py-32 max-w-7xl mx-auto px-6">
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
             <span class="text-xs uppercase tracking-widest text-brand-royal font-bold block">My Creative Works</span>
             <h2 class="text-3xl md:text-5xl font-extrabold">معرض الأعمال المختارة</h2>
             <p class="text-brand-textMuted font-light text-sm md:text-base">
-                استعرض مشاريعي مقسمة حسب التخصص. اضغط على التصنيف لرؤية أعمالي فيه فوراً.
+                استعرض مشاريعي حسب التخصص. اضغط على التصنيف لرؤية الأعمال المرتبطة به.
             </p>
 
-            <!-- أزرار التصفية والتقسيم (Filter Buttons) -->
+            <!-- أزرار التقسيم الفاخرة بدون زر "الكل" -->
             <div class="flex flex-wrap justify-center gap-3 pt-6">
-                <button onclick="filterSelection('all')" class="filter-btn active-filter px-6 py-2.5 rounded-full bg-brand-card text-brand-textMuted text-sm font-medium border border-white/5 hover:border-brand-royal/40 transition-all duration-300">الكل</button>
-                <button onclick="filterSelection('branding')" class="filter-btn px-6 py-2.5 rounded-full bg-brand-card text-brand-textMuted text-sm font-medium border border-white/5 hover:border-brand-royal/40 transition-all duration-300">هويات بصرية</button>
                 <button onclick="filterSelection('sports')" class="filter-btn px-6 py-2.5 rounded-full bg-brand-card text-brand-textMuted text-sm font-medium border border-white/5 hover:border-brand-royal/40 transition-all duration-300">بوسترات رياضية</button>
+                <button onclick="filterSelection('branding')" class="filter-btn px-6 py-2.5 rounded-full bg-brand-card text-brand-textMuted text-sm font-medium border border-white/5 hover:border-brand-royal/40 transition-all duration-300">هويات بصرية</button>
                 <button onclick="filterSelection('random')" class="filter-btn px-6 py-2.5 rounded-full bg-brand-card text-brand-textMuted text-sm font-medium border border-white/5 hover:border-brand-royal/40 transition-all duration-300">أخرى (عشوائيات)</button>
             </div>
         </div>
 
-        <!-- شبكة عرض الصور والمشاريع -->
+        <!-- شبكة عرض الأعمال -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- عمل 1: هويات بصرية -->
-            <div class="portfolio-item branding bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group">
-                <div class="aspect-[16/11] bg-zinc-900 w-full overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="هوية بصرية" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-90"></div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs text-brand-royal font-bold tracking-wider uppercase">هويات بصرية</span>
-                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">مشروع تصميم هوية احترافية</h3>
-                </div>
-            </div>
-
-            <!-- عمل 2: بوسترات رياضية -->
-            <div class="portfolio-item sports bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group">
+            <!-- عمل 1: بوستر رياضي (صورة واحدة فقط) -->
+            <div class="portfolio-item sports bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group cursor-pointer" onclick="openSingleImage('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80')">
                 <div class="aspect-[16/11] bg-zinc-900 w-full overflow-hidden relative">
                     <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80" alt="بوستر رياضي" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-90"></div>
                 </div>
                 <div class="p-6">
                     <span class="text-xs text-brand-royal font-bold tracking-wider uppercase">بوسترات رياضية</span>
-                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">بوستر سينمائي للافتة جماهيرية</h3>
+                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">بوستر سينمائي حماسي للمدرجات</h3>
                 </div>
             </div>
 
-            <!-- عمل 3: أخرى -->
-            <div class="portfolio-item random bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group">
-                <div class="aspect-[16/11] bg-zinc-900 w-full overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80" alt="تصميم عشوائي" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-90"></div>
+            <!-- عمل 2: هوية بصرية (عدة صور رئيسية + تطبيقات موك أب متكاملة) -->
+            <div class="portfolio-item branding bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group cursor-pointer relative" 
+                 onclick="openAlbum(['https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80', 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80', 'https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?auto=format&fit=crop&w=1200&q=80'])">
+                
+                <!-- شارة تدل على أن التصميم عبارة عن ألبوم صور وتطبيقات متعددة -->
+                <div class="absolute top-4 left-4 z-20 bg-brand-royal/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5M5 19v-4m14 4v-5m0 0V9a2 2 0 00-2-2h-2M9 5h4"></path></svg>
+                    ألبوم واستعراض الهوية
                 </div>
-                <div class="p-6">
-                    <span class="text-xs text-brand-royal font-bold tracking-wider uppercase">أخرى</span>
-                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">تجارب بصرية وفنون رقمية حرة</h3>
-                </div>
-            </div>
 
-            <!-- عمل 4: هويات بصرية -->
-            <div class="portfolio-item branding bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group">
                 <div class="aspect-[16/11] bg-zinc-900 w-full overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80" alt="تصميم مونوغرام" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="هوية بصرية" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-90"></div>
                 </div>
                 <div class="p-6">
                     <span class="text-xs text-brand-royal font-bold tracking-wider uppercase">هويات بصرية</span>
-                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">شعار مونوغرام فاخر</h3>
+                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">هوية مونوغرام مع تطبيقات الموك أب</h3>
                 </div>
             </div>
 
-            <!-- عمل 5: بوسترات رياضية -->
-            <div class="portfolio-item sports bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group">
+            <!-- عمل 3: أخرى عشوائيات (صورة واحدة) -->
+            <div class="portfolio-item random bg-brand-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand-royal/30 transition-all duration-500 group cursor-pointer" onclick="openSingleImage('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80')">
                 <div class="aspect-[16/11] bg-zinc-900 w-full overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1540747737956-378724044432?auto=format&fit=crop&w=800&q=80" alt="بوستر ملعب" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80" alt="تصميم حُر" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-90"></div>
                 </div>
                 <div class="p-6">
-                    <span class="text-xs text-brand-royal font-bold tracking-wider uppercase">بوسترات رياضية</span>
-                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">تصميم إعلاني رياضي ذو تباين عالٍ</h3>
+                    <span class="text-xs text-brand-royal font-bold tracking-wider uppercase">أخرى</span>
+                    <h3 class="text-lg font-bold mt-1 text-white group-hover:text-brand-royal transition-colors">فنون رقمية حرة وتجارب بصرية</h3>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- قسم التواصل (Contact Section) -->
+    <!-- واجهة منبثقة تفاعلية فاخرة (Modal) لعرض صور الألبوم وتطبيقات الهوية والبوسترات بشكل مذهل -->
+    <div id="galleryModal" class="fixed inset-0 z-50 hidden bg-brand-popupBg flex flex-col justify-center items-center p-4 backdrop-blur-xl">
+        <!-- زر الإغلاق المتقن -->
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-3 rounded-full transition-all duration-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- منطقة عرض الصور وتطبيقات الموك أب الكبيرة -->
+        <div class="relative max-w-5xl w-full flex items-center justify-center">
+            
+            <!-- أزرار التنقل بين ألبومات الهويات البصرية -->
+            <button id="prevBtn" onclick="changeSlide(-1)" class="absolute right-4 z-30 p-3 rounded-xl bg-black/40 text-white hover:bg-brand-royal transition-all duration-200 hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            
+            <img id="modalImage" src="" class="max-h-[75vh] max-w-full rounded-xl object-contain shadow-2xl border border-white/10 transition-all duration-300">
+            
+            <button id="nextBtn" onclick="changeSlide(1)" class="absolute left-4 z-30 p-3 rounded-xl bg-black/40 text-white hover:bg-brand-royal transition-all duration-200 hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+        </div>
+        
+        <!-- نص وصفي أسفل المعرض لترتيب العرض -->
+        <div id="galleryCounter" class="mt-4 text-xs font-medium text-brand-textMuted tracking-wider"></div>
+    </div>
+
+    <!-- قسم التواصل الاجتماعي -->
     <section id="contact" class="py-32 px-6 max-w-3xl mx-auto text-center relative z-10">
         <span class="text-xs uppercase tracking-widest text-brand-royal font-bold block mb-2">Get In Touch</span>
         <h2 class="text-3xl md:text-5xl font-extrabold mb-6">لنصنع قصة نجاح جديدة معاً</h2>
@@ -250,36 +274,90 @@
 
     <!-- الفوتر -->
     <footer class="py-8 border-t border-white/5 text-center text-xs text-brand-textMuted">
-        <p>©️ 2026 ماجد الحربي. صُنع بكل شغف وإتقان.</p>
+        <p>© 2026 ماجد الحربي. صُنع بكل شغف وإتقان.</p>
     </footer>
 
-    <!-- برمجيات التفاعل والأرقام (JavaScript) -->
+    <!-- برمجيات التفاعل والتحكم بالموقع -->
     <script>
-        // 1. نظام تصفية ومعاينة الأعمال (Portfolio Filter)
+        // المتغيرات الخاصة بنظام ألبوم الصور
+        let currentAlbum = [];
+        let currentSlideIdx = 0;
+
+        // 1. نظام تصفية عادل ومثالي يبدأ بالبوسترات الرياضية تلقائياً ويلغي فئة "الكل"
         function filterSelection(category) {
             const items = document.getElementsByClassName('portfolio-item');
             const buttons = document.getElementsByClassName('filter-btn');
             
-            // تحديث تصميم الأزرار
             for (let btn of buttons) {
                 btn.classList.remove('active-filter');
+                if(btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.add('active-filter');
+                }
             }
-            event.target.classList.add('active-filter');
 
-            // إخفاء وإظهار العناصر بحركات ناعمة
             for (let item of items) {
-                if (category === 'all' || item.classList.contains(category)) {
-                    item.style.display = 'block';
-                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 10);
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.95)';
-                    setTimeout(() => { item.style.display = 'none'; }, 300);
+                item.classList.remove('show');
+                if (item.classList.contains(category)) {
+                    item.classList.add('show');
                 }
             }
         }
 
-        // 2. نظام تشغيل العدادات المتحركة للأرقام تلقائياً عند النزول إليها
+        // تشغيل البوسترات الرياضية كخيار افتراضي ممتاز أول ما يفتح الموقع
+        document.addEventListener("DOMContentLoaded", () => {
+            filterSelection('sports');
+        });
+
+        // 2. تصفح صورة واحدة للبوسترات
+        function openSingleImage(imgUrl) {
+            currentAlbum = [imgUrl];
+            currentSlideIdx = 0;
+            updateModalView(false);
+        }
+
+        // 3. تصفح ألبوم متعدد للـ هوية بصرية وتطبيقات الموك أب
+        function openAlbum(imagesArray) {
+            currentAlbum = imagesArray;
+            currentSlideIdx = 0;
+            updateModalView(true);
+        }
+
+        // تحديث الواجهة التفاعلية الفاخرة للصور
+        function updateModalView(isAlbum) {
+            const modal = document.getElementById('galleryModal');
+            const modalImg = document.getElementById('modalImage');
+            const prev = document.getElementById('prevBtn');
+            const next = document.getElementById('nextBtn');
+            const counter = document.getElementById('galleryCounter');
+
+            modalImg.src = currentAlbum[currentSlideIdx];
+            modal.classList.remove('hidden');
+
+            if (isAlbum && currentAlbum.length > 1) {
+                prev.classList.remove('hidden');
+                next.classList.remove('hidden');
+                counter.innerText = `التصميم والـ Mockup ${currentSlideIdx + 1} من أصل ${currentAlbum.length}`;
+            } else {
+                prev.classList.add('hidden');
+                next.classList.add('hidden');
+                counter.innerText = "";
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlideIdx += direction;
+            if (currentSlideIdx >= currentAlbum.length) currentSlideIdx = 0;
+            if (currentSlideIdx < 0) currentSlideIdx = currentAlbum.length - 1;
+            document.getElementById('modalImage').src = currentAlbum[currentSlideIdx];
+            document.getElementById('galleryCounter').innerText = `التصميم والـ Mockup ${currentSlideIdx + 1} من أصل ${currentAlbum.length}`;
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').add('hidden');
+            document.getElementById('galleryModal').classList.add('hidden');
+        }
+
+        // 4. نظام العدادات التفاعلية عند النزول للأرقام
         const stats = document.querySelectorAll('[data-target]');
         const speed = 40; 
 
@@ -295,7 +373,7 @@
                         if (count < target) {
                             count += increment;
                             if (count > target) count = target;
-                            counter.innerText = count + (target === 5 ? '+' : '+');
+                            counter.innerText = count + '+';
                             setTimeout(updateCount, 25);
                         } else {
                             counter.innerText = target + '+';
