@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ماجد الحربي | معرض الأعمال الرقمي</title>
-    <!-- Tailwind CSS -->
+    <title>ماجد الحربي | ملف الأعمال الاحترافي</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- خط القاهرة الفاخر -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Cairo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -15,39 +17,49 @@
                 extend: {
                     colors: {
                         space: {
-                            bg: '#0F0F11',         /* الرمادي الفضائي العميق */
+                            bg: '#0F0F11',         /* الرمادي الفضائي الفخم بديل الأسود */
                             surface: '#16161A',    /* الكروت والأسطح الزجاجية */
-                            cyber: '#0053E7',      /* الأزرق الملكي المشع */
+                            cyber: '#0053E7',      /* الأزرق الملكي المشع لآبل */
+                            cyberDark: '#003BB3',
                             textMuted: '#8E8E93'   /* النصوص الفرعية الهادئة */
                         }
                     },
-                    fontFamily: { sans: ['Cairo', 'sans-serif'] }
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    }
                 }
             }
         }
     </script>
-    
     <style>
-        body { 
-            background-color: #0F0F11; 
+        body {
+            background-color: #0F0F11;
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
         }
 
-        /* زجاج آبل الفضائي المحسن (Deep Space Glassmorphism) */
+        /* زجاج آبل الفضائي المحسن (Spatial Glassmorphism) */
         .space-glass {
-            background: rgba(22, 22, 26, 0.7);
+            background: rgba(22, 22, 26, 0.65);
             backdrop-filter: blur(30px) saturate(160%);
             -webkit-backdrop-filter: blur(30px) saturate(160%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .panel-glass {
+            background: rgba(22, 22, 26, 0.4);
+            backdrop-filter: blur(25px) saturate(140%);
+            -webkit-backdrop-filter: blur(25px) saturate(140%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         /* كروت الأعمال الزجاجية التفاعلية */
         .card-glass {
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .card-glass:hover {
             background: rgba(255, 255, 255, 0.04);
@@ -56,141 +68,361 @@
                         0 0 40px rgba(0, 83, 231, 0.2);
         }
 
-        /* أزرار الكبسولة الانسيابية للفلترة */
+        /* أزرار الكبسولة الانسيابية الفاخرة لـ iOS */
         .capsule-btn {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border: 1px solid rgba(255, 255, 255, 0.05);
             background: rgba(255, 255, 255, 0.02);
         }
-        .capsule-btn.active, .capsule-btn:hover {
-            background: #0053E7;
-            color: #ffffff;
-            border-color: #0053E7;
-            box-shadow: 0 12px 30px rgba(0, 83, 231, 0.3);
+        .capsule-btn:hover {
+            border-color: rgba(0, 83, 231, 0.5);
+            background: rgba(0, 83, 231, 0.05);
+            color: white;
         }
 
-        /* إخفاء العناصر غير المحددة بنعومة */
-        .portfolio-item {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        /* حالة الزر النشط بنقاء آبل البصري */
+        .active-filter {
+            background-color: #0053E7 !important;
+            color: white !important;
+            border-color: #0053E7 !important;
+            box-shadow: 0 12px 25px rgba(0, 83, 231, 0.35);
         }
-        .portfolio-item.hidden-item {
+
+        /* حركات إخفاء وإظهار عناصر الجريد بنعومة */
+        .portfolio-item {
+            display: none;
             opacity: 0;
-            transform: scale(0.92);
-            position: absolute;
-            pointer-events: none;
-            width: 0;
-            height: 0;
-            overflow: hidden;
-            padding: 0;
-            margin: 0;
-            border: none;
+            transform: scale(0.95);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .portfolio-item.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
         }
     </style>
 </head>
-<body class="text-white antialiased min-h-screen relative py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+<body class="text-white antialiased">
 
-    <!-- التوهج الديناميكي الخلفي للأزرق الملكي ليعطي العمق الفضائي -->
-    <div class="absolute top-10 right-1/4 w-[600px] h-[600px] bg-space-cyber/10 rounded-full blur-[160px] pointer-events-none animate-pulse"></div>
-    <div class="absolute bottom-10 left-1/4 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none"></div>
+    <!-- توهج فضائي متحرك بالخلفية ليعطي أبعاد نظارات الـ Vision Pro لعمق الشاشة -->
+    <div class="absolute top-[10%] left-1/4 w-[600px] h-[600px] bg-space-cyber/10 rounded-full blur-[150px] pointer-events-none animate-pulse"></div>
+    <div class="absolute top-[50%] right-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[160px] pointer-events-none"></div>
 
-    <!-- لوحة الزجاج الرئيسية للموقع (The Studio Panel) -->
-    <div class="max-w-6xl w-full space-glass rounded-[40px] p-6 sm:p-10 md:p-16 shadow-[0_60px_120px_rgba(0,0,0,0.6)] relative z-10 overflow-hidden">
-        
-        <!-- الهيدر والتعريف الشخصي النظيف -->
-        <header class="text-center space-y-4 mb-16 relative">
-            <span class="text-[10px] font-black tracking-[0.5em] text-space-cyber uppercase block">[ MAJED HARBI / STUDIO ]</span>
-            <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-none">ماجد الحربي</h1>
-            <p class="text-space-textMuted text-sm sm:text-base max-w-md mx-auto font-light leading-relaxed">
-                مطور ومصمم جرافيك متخصص في بناء الهويات البصرية الفاخرة والبوسترات الرياضية ذات الطابع السينمائي الحاد.
+    <!-- الهيدر / شريط التنقل الزجاجي النقي -->
+    <header class="fixed top-0 left-0 right-0 z-50 space-glass">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="text-xl md:text-2xl font-black tracking-widest text-white">
+                ماجد <span class="text-space-cyber">الحربي</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-space-textMuted">
+                <a href="#hero" class="hover:text-white transition-colors">الرئيسية</a>
+                <a href="#about" class="hover:text-white transition-colors">قصتي</a>
+                <a href="#work" class="hover:text-white transition-colors">أعمالي</a>
+                <a href="#contact" class="px-6 py-3 rounded-full bg-space-cyber text-white hover:bg-space-cyberDark transition-all duration-300 font-bold shadow-lg shadow-space-cyber/20">تواصل معي</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي (Hero Section) مع زيادة المسافات الهندسية الفاخرة -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative pt-24 px-6 overflow-hidden">
+        <div class="max-w-4xl text-center z-10 space-y-8">
+            <span class="text-[10px] font-black tracking-[0.5em] text-space-cyber uppercase block">[ MINIMAL LUXURY DESIGN ]</span>
+            <h2 class="text-2xl md:text-4xl font-black text-space-cyber tracking-wide mb-2">المصمم: ماجد الحربي</h2>
+            
+            <h1 class="text-4xl md:text-7xl font-black tracking-tight text-white flex flex-col gap-6 md:gap-8 leading-tight">
+                <span>أصنع تفاصيل</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-b from-white to-zinc-400 py-1">تترك أثراً بصرياً</span>
+            </h1>
+            
+            <p class="text-space-textMuted text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed pt-2">
+                مرحباً بك في عالمي البصري. هنا تجد خلاصة شغفي في تصميم الشعارات المبتكرة، البوستر السينمائي والرياضي، والفنون الرقمية المتجددة.
             </p>
-        </header>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
+                <a href="#work" class="w-full sm:w-auto px-8 py-4 rounded-full bg-space-cyber text-white font-bold hover:bg-space-cyberDark transition-all duration-300 shadow-xl shadow-space-cyber/20 text-center text-sm tracking-wide">
+                    تصفح معرض الأعمال
+                </a>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/5 hover:border-space-cyber/30 hover:bg-white/10 transition-all duration-300 text-center text-sm tracking-wide">
+                    اقرأ نبذة عني
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <!-- نظام الفلترة الذكي (التحكم بالكبسولات) -->
-        <div class="flex justify-center flex-wrap gap-3 mb-16">
-            <button onclick="filterCategory('all')" id="btn-all" class="capsule-btn active px-8 py-3 rounded-full text-xs font-bold tracking-wider">الكل</button>
-            <button onclick="filterCategory('posters')" id="btn-posters" class="capsule-btn px-8 py-3 rounded-full text-xs font-bold tracking-wider text-space-textMuted">بوسترات رياضية</button>
-            <button onclick="filterCategory('branding')" id="btn-branding" class="capsule-btn px-8 py-3 rounded-full text-xs font-bold tracking-wider text-space-textMuted">هويات بصرية</button>
+    <!-- قسم الأرقام والإحصائيات الزجاجي النقي -->
+    <section class="py-16 max-w-6xl mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            
+            <div class="panel-glass rounded-2xl p-6 text-center shadow-sm">
+                <div class="text-3xl md:text-5xl font-black text-space-cyber mb-2" data-target="3">0</div>
+                <div class="text-xs md:text-sm text-space-textMuted font-light">سنوات الخبرة والشغف</div>
+            </div>
+
+            <div class="panel-glass rounded-2xl p-6 text-center shadow-sm">
+                <div class="text-3xl md:text-5xl font-black text-white mb-2" data-target="100">0</div>
+                <div class="text-xs md:text-sm text-space-textMuted font-light">أعمال ومنجزات بصرية</div>
+            </div>
+
+            <div class="panel-glass rounded-2xl p-6 text-center shadow-sm">
+                <div class="text-3xl md:text-5xl font-black text-white mb-2" data-target="20">0</div>
+                <div class="text-xs md:text-sm text-space-textMuted font-light">أندية وجهات رياضية</div>
+            </div>
+
+            <div class="panel-glass rounded-2xl p-6 text-center shadow-sm flex flex-col justify-center items-center">
+                <div class="text-space-cyber text-2xl md:text-3xl font-black mb-2">24/7</div>
+                <div class="text-xs md:text-sm text-space-textMuted font-light">جودة والتزام مستمر</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم النبذة الشخصية (نصوصك الأصلية داخل إطار زجاجي فاخر) -->
+    <section id="about" class="py-32 bg-white/[0.01] border-y border-white/5 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                
+                <div class="md:col-span-4 space-y-3">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-space-cyber font-bold block">Behind The Designs</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">وراء كل تصميم.. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-space-cyber">قصة تُروى</span></h2>
+                </div>
+
+                <div class="md:col-span-8 text-space-textMuted font-light text-base md:text-lg leading-relaxed space-y-6 border-r-0 md:border-r-2 border-space-cyber/20 md:pr-8">
+                    <p>
+                        أنا <strong class="text-white font-bold">ماجد الحربي</strong>، مصمم بدأت رحلتي من الصفر، متعلماً بأبسط الأدوات المتاحة. لم تكن البساطة عائقاً بل كانت دافعاً للتطور المستمر، واليوم ولله الحمد، وصلت إلى مستوى احترافي أرضى عنه تماماً وأطمح من خلاله للأفضل دائماً.
+                    </p>
+                    <p>
+                        فلسفتي في التصميم تتلخص في أن العمل ليس مجرد دمج صور أو ترتيب عناصر؛ بل هو <strong class="text-white font-medium">«بثٌّ للحياة وصناعة قصة متكاملة تلمس المشاهد»</strong>. أحرص دائماً على مواكبة أحدث الاتجاهات العالمية، وأركز بقوة على كسب الإلهام وتوسيع آفاقي البصرية، لأنني أؤمن تماماً بأن <strong class="text-white font-medium">«الفكرة والإلهام هما الأساس, أما الأدوات والتنفيذ فأمرها مقدور عليه وسهل»</strong>.
+                    </p>
+                    <p>
+                        لا أحب التكرار أو البقاء في قالب تقليدي، بل أسعى دوماً للابتكار والتجديد المستمر لتقديم أعمال تتسم بـ <strong class="text-white font-medium">«أعلى معايير الجودة»</strong>، مظهراً فيها كامل قدراتي وإمكانياتي لتلبية تطلعات العميل وترك بصمة بصريّة لا تُنسى.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم معرض الأعمال الذكي بفلترة الكبسولات الزجاجية العائمة -->
+    <section id="work" class="py-32 max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-space-cyber font-bold block">My Creative Works</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold">معرض الأعمال المختارة</h2>
+            <p class="text-space-textMuted font-light text-sm md:text-base">
+                استعرض مشاريعي حسب التخصص. اضغط على التصنيف لرؤية الأعمال المرتبطة به.
+            </p>
+
+            <!-- أزرار التقسيم الكبسولية الفاخرة المستوحاة من دوك آبل الافتراضي -->
+            <div class="flex flex-wrap justify-center gap-3 pt-6">
+                <button onclick="filterSelection('sports')" class="filter-btn capsule-btn px-7 py-2.5 rounded-full text-space-textMuted text-xs font-bold tracking-wider">بوسترات رياضية</button>
+                <button onclick="filterSelection('branding')" class="filter-btn capsule-btn px-7 py-2.5 rounded-full text-space-textMuted text-xs font-bold tracking-wider">هويات بصرية</button>
+                <button onclick="filterSelection('random')" class="filter-btn capsule-btn px-7 py-2.5 rounded-full text-space-textMuted text-xs font-bold tracking-wider">أخرى (عشوائيات)</button>
+            </div>
         </div>
 
-        <!-- شبكة عرض الأعمال المتجاوبة (Responsive Grid) -->
-        <main id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 transition-all duration-500">
+        <!-- شبكة عرض الأعمال الهندسية الدقيقة والناعمة جداً -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- العمل 1: بوسترات رياضية -->
-            <div class="portfolio-item card-glass rounded-3xl p-4 group cursor-pointer" data-category="posters">
-                <div class="aspect-[16/10] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
-                    <!-- استبدل الرابط برابط صورتك الفعلي لاحقاً -->
-                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1000&q=80" alt="بوستر رياضي سينمائي" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
+            <!-- عمل 1: بوستر رياضي -->
+            <div class="portfolio-item sports card-glass rounded-3xl p-3.5 group cursor-pointer" onclick="openSingleImage('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80')">
+                <div class="aspect-[16/11] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80" alt="بوستر رياضي" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-space-bg via-transparent to-transparent opacity-80"></div>
                 </div>
-                <div class="p-5 space-y-1">
-                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block">SPORTS POSTER</span>
-                    <h3 class="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">بوستر سينمائي حماسي للمدرجات</h3>
-                </div>
-            </div>
-
-            <!-- العمل 2: هويات بصرية -->
-            <div class="portfolio-item card-glass rounded-3xl p-4 group cursor-pointer" data-category="branding">
-                <div class="aspect-[16/10] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="هوية بصرية فاخرة" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
-                </div>
-                <div class="p-5 space-y-1">
-                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block">VISUAL IDENTITY</span>
-                    <h3 class="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">هوية مونوغرام فاخرة وتطبيقات الموك أب</h3>
+                <div class="p-5">
+                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block mb-1">بوسترات رياضية</span>
+                    <h3 class="text-base font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">بوستر سينمائي حماسي للمدرجات</h3>
                 </div>
             </div>
 
-            <!-- العمل 3: بوسترات رياضية -->
-            <div class="portfolio-item card-glass rounded-3xl p-4 group cursor-pointer" data-category="posters">
-                <div class="aspect-[16/10] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1000&q=80" alt="تصميم رياضي" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
+            <!-- عمل 2: هوية بصرية (الألبوم المتعدد) -->
+            <div class="portfolio-item branding card-glass rounded-3xl p-3.5 group cursor-pointer relative" 
+                 onclick="openAlbum(['https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80', 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80', 'https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?auto=format&fit=crop&w=1200&q=80'])">
+                
+                <!-- شارة فخمة زجاجية تدل على الألبوم -->
+                <div class="absolute top-6 left-6 z-20 bg-space-cyber/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg border border-white/10">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5M5 19v-4m14 4v-5m0 0V9a2 2 0 00-2-2h-2M9 5h4"></path></svg>
+                    ألبوم واستعراض الهوية
                 </div>
-                <div class="p-5 space-y-1">
-                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block">SPORTS ART</span>
-                    <h3 class="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">تصميم مفاهيمي لإطلاق الأطقم الرياضية</h3>
+
+                <div class="aspect-[16/11] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="هوية بصرية" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-space-bg via-transparent to-transparent opacity-80"></div>
+                </div>
+                <div class="p-5">
+                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block mb-1">هويات بصرية</span>
+                    <h3 class="text-base font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">هوية مونوغرام مع تطبيقات الموك أب</h3>
                 </div>
             </div>
 
-            <!-- العمل 4: هويات بصرية -->
-            <div class="portfolio-item card-glass rounded-3xl p-4 group cursor-pointer" data-category="branding">
-                <div class="aspect-[16/10] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1000&q=80" alt="تصميم شعار هندسي" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
+            <!-- عمل 3: أخرى عشوائيات -->
+            <div class="portfolio-item random card-glass rounded-3xl p-3.5 group cursor-pointer" onclick="openSingleImage('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80')">
+                <div class="aspect-[16/11] bg-zinc-900/60 w-full overflow-hidden relative rounded-2xl border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80" alt="تصميم حُر" class="w-full h-full object-cover opacity-80 group-hover:scale-103 group-hover:opacity-100 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-space-bg via-transparent to-transparent opacity-80"></div>
                 </div>
-                <div class="p-5 space-y-1">
-                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block">MINIMALIST LOGO</span>
-                    <h3 class="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">براند ميتراس الفاخر بالهندسة الدقيقة</h3>
+                <div class="p-5">
+                    <span class="text-[10px] text-space-cyber font-bold tracking-widest uppercase block mb-1">أخرى</span>
+                    <h3 class="text-base font-bold text-zinc-200 group-hover:text-white transition-colors duration-300">فنون رقمية حرة وتجارب بصرية</h3>
                 </div>
             </div>
 
-        </main>
+        </div>
+    </section>
+
+    <!-- واجهة منبثقة تفاعلية (Modal) مصقولة بالزجاج النقي الداكن جداً والـ Blur العالي -->
+    <div id="galleryModal" class="fixed inset-0 z-50 hidden bg-[#0A0A0C]/90 flex flex-col justify-center items-center p-4 backdrop-blur-2xl">
+        <!-- زر الإغلاق الدائري النظيف -->
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-3 rounded-full transition-all duration-200 border border-white/5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- منطقة العرض الكبيرة -->
+        <div class="relative max-w-5xl w-full flex items-center justify-center">
+            
+            <button id="prevBtn" onclick="changeSlide(-1)" class="absolute right-4 z-30 p-3.5 rounded-2xl bg-black/50 text-white hover:bg-space-cyber border border-white/5 transition-all duration-300 hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            
+            <img id="modalImage" src="" class="max-h-[75vh] max-w-full rounded-2xl object-contain shadow-[0_50px_100px_rgba(0,0,0,0.8)] border border-white/10 transition-all duration-300">
+            
+            <button id="nextBtn" onclick="changeSlide(1)" class="absolute left-4 z-30 p-3.5 rounded-2xl bg-black/50 text-white hover:bg-space-cyber border border-white/5 transition-all duration-300 hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+        </div>
+        
+        <div id="galleryCounter" class="mt-5 text-xs font-medium text-space-textMuted tracking-wider bg-white/5 px-4 py-2 rounded-full border border-white/5"></div>
     </div>
 
-    <!-- كود الـ JavaScript لتشغيل نظام الفلترة التفاعلي بنعومة فائقة -->
+    <!-- قسم التواصل الفخم السلس -->
+    <section id="contact" class="py-32 px-6 max-w-3xl mx-auto text-center relative z-10">
+        <span class="text-[10px] uppercase tracking-[0.3em] text-space-cyber font-bold block mb-2">Get In Touch</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">لنصنع قصة نجاح جديدة معاً</h2>
+        <p class="text-space-textMuted mb-12 font-light max-w-md mx-auto text-sm md:text-base">
+            إذا كنت تبحث عن فكرة مبتكرة وتصميم استثنائي يرفع من قيمة علامتك أو مشروعك، لا تتردد بالتواصل معي.
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-5">
+            <a href="https://x.com" target="_blank" class="w-14 h-14 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-zinc-400 hover:border-space-cyber hover:text-white hover:bg-space-cyber/10 transition-all duration-300 shadow-sm">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="mailto:your-email@example.com" class="w-14 h-14 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center text-zinc-400 hover:border-space-cyber hover:text-white hover:bg-space-cyber/10 transition-all duration-300 shadow-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L22 8m-9+13a9 9 0 01-9-9V6a2 2 0 012-2h12a2 2 0 012 2v10a9 9 0 01-9 9z"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- الفوتر الفضائي الصامت -->
+    <footer class="py-8 border-t border-white/5 text-center text-xs text-space-textMuted tracking-wide">
+        <p>© 2026 ماجد الحربي. صُنع بكل شغف وإتقان.</p>
+    </footer>
+
+    <!-- سكريبتات التحكم والتفاعل بالكامل دون المساس بآليتها الأصلية المتقنة -->
     <script>
-        function filterCategory(category) {
-            // جلب كافة العناصر وأزرار الفلترة
-            const items = document.querySelectorAll('.portfolio-item');
-            const buttons = document.querySelectorAll('.capsule-btn');
+        let currentAlbum = [];
+        let currentSlideIdx = 0;
 
-            // إزالة الحالة النشطة (active) من كل الأزرار
-            buttons.forEach(btn => {
-                btn.classList.remove('active', 'text-white');
-                btn.classList.add('text-space-textMuted');
-            });
+        // نظام الفلترة للكبسولات الزجاجية
+        function filterSelection(category) {
+            const items = document.getElementsByClassName('portfolio-item');
+            const buttons = document.getElementsByClassName('filter-btn');
+            
+            for (let btn of buttons) {
+                btn.classList.remove('active-filter');
+                if(btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.add('active-filter');
+                }
+            }
 
-            // إضافة الحالة النشطة للزر المختار حالياً
-            const activeBtn = document.getElementById(`btn-${category}`);
-            activeBtn.classList.add('active', 'text-white');
-            activeBtn.classList.remove('text-space-textMuted');
+            for (let item of items) {
+                item.classList.remove('show');
+                if (item.classList.contains(category)) {
+                    item.classList.add('show');
+                }
+            }
+        }
 
-            // التحكم في ظهور واختفاء الكروت بناءً على الفئة المختارة
-            items.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
-                if (category === 'all' || itemCategory === category) {
-                    item.classList.remove('hidden-item');
-                } else {
-                    item.classList.add('hidden-item');
+        // تشغيل البوسترات الرياضية كخيار افتراضي عند التحميل
+        document.addEventListener("DOMContentLoaded", () => {
+            filterSelection('sports');
+        });
+
+        // فتح صورة بوستر واحدة
+        function openSingleImage(imgUrl) {
+            currentAlbum = [imgUrl];
+            currentSlideIdx = 0;
+            updateModalView(false);
+        }
+
+        // فتح ألبوم هويات متعددة
+        function openAlbum(imagesArray) {
+            currentAlbum = imagesArray;
+            currentSlideIdx = 0;
+            updateModalView(true);
+        }
+
+        function updateModalView(isAlbum) {
+            const modal = document.getElementById('galleryModal');
+            const modalImg = document.getElementById('modalImage');
+            const prev = document.getElementById('prevBtn');
+            const next = document.getElementById('nextBtn');
+            const counter = document.getElementById('galleryCounter');
+
+            modalImg.src = currentAlbum[currentSlideIdx];
+            modal.classList.remove('hidden');
+
+            if (isAlbum && currentAlbum.length > 1) {
+                prev.classList.remove('hidden');
+                next.classList.remove('hidden');
+                counter.innerText = `التصميم والـ Mockup ${currentSlideIdx + 1} من أصل ${currentAlbum.length}`;
+            } else {
+                prev.classList.add('hidden');
+                next.classList.add('hidden');
+                counter.innerText = "";
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlideIdx += direction;
+            if (currentSlideIdx >= currentAlbum.length) currentSlideIdx = 0;
+            if (currentSlideIdx < 0) currentSlideIdx = currentAlbum.length - 1;
+            document.getElementById('modalImage').src = currentAlbum[currentSlideIdx];
+            document.getElementById('galleryCounter').innerText = `التصميم والـ Mockup ${currentSlideIdx + 1} من أصل ${currentAlbum.length}`;
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').classList.add('hidden');
+        }
+
+        // نظام العدادات الذكي عند السكرول للأرقام
+        const stats = document.querySelectorAll('[data-target]');
+        const speed = 40; 
+
+        const startCounters = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    let count = 0;
+                    
+                    const updateCount = () => {
+                        const increment = Math.ceil(target / speed);
+                        if (count < target) {
+                            count += increment;
+                            if (count > target) count = target;
+                            counter.innerText = count + '+';
+                            setTimeout(updateCount, 25);
+                        } else {
+                            counter.innerText = target + '+';
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
                 }
             });
-        }
+        };
+
+        const observer = new IntersectionObserver(startCounters, { threshold: 0.5 });
+        stats.forEach(stat => observer.observe(stat));
     </script>
 
 </body>
